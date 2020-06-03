@@ -2489,14 +2489,14 @@ textarea.mce {
   cursor: normal !important;
 }
 .dataTables_paginate .paginate_button:not(.disabled):hover {
-  background: #F4645F !important;
+  background: #0ca5c7 !important;
   color: #F3F3F3 !important;
-  border: 1px solid #f13f39 !important;
+  border: 1px solid #0a85a1 !important;
 }
 .dataTables_paginate .paginate_button.current {
-  background: #F4645F !important;
+  background: #0ca5c7 !important;
   color: #F3F3F3 !important;
-  border: 1px solid #f13f39 !important;
+  border: 1px solid #0a85a1 !important;
 }
 
 .dataTables_wrapper .dataTables_paginate .paginate_button.current, .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
@@ -2600,7 +2600,7 @@ table.dataTable thead th, table.dataTable tfoot th {
 }
 
 .select2-container--default .select2-results__option--highlighted[aria-selected] {
-  background-color: #F4645F;
+  background-color: #0ca5c7;
   font-size: 0.875em;
 }
 
@@ -2647,7 +2647,7 @@ table.dataTable thead th, table.dataTable tfoot th {
   font-weight: 600;
 }
 .ajax_load .ajax_load_box_circle {
-  border-top: 16px solid #F4645F !important;
+  border-top: 16px solid #0ca5c7 !important;
   border: 16px solid #e3e3e3;
   border-radius: 50%;
   margin: auto;
@@ -3221,14 +3221,14 @@ a.text-red:hover {
 }
 
 .text-orange {
-  color: #F4645F !important;
+  color: #0ca5c7 !important;
 }
 
 a.text-orange {
-  color: #F4645F !important;
+  color: #0ca5c7 !important;
 }
 a.text-orange:hover {
-  color: #f13f39 !important;
+  color: #0a85a1 !important;
 }
 
 .text-left {
@@ -3280,7 +3280,7 @@ a.text-orange:hover {
 }
 
 .gradient-orange {
-  background-image: linear-gradient(to right, #F4645F 0%, #f13f39 50%, #F4645F 100%);
+  background-image: linear-gradient(to right, #0ca5c7 0%, #0a85a1 50%, #0ca5c7 100%);
 }
 
 .btn {
@@ -3372,14 +3372,14 @@ a.text-orange:hover {
 }
 
 .btn-orange {
-  background-color: #F4645F;
+  background-color: #0ca5c7;
   color: #ffffff;
 }
 .btn-orange:hover {
-  background-color: #f13f39;
+  background-color: #0a85a1;
 }
 .btn-orange:disabled {
-  background-color: #fbc0be;
+  background-color: #45d4f4;
   cursor: not-allowed;
 }
 
@@ -3400,7 +3400,7 @@ a.text-orange:hover {
 }
 
 .bg-orange {
-  background-color: #F4645F;
+  background-color: #0ca5c7;
 }
 
 .bg-body {

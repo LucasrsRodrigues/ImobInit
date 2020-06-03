@@ -18,7 +18,7 @@ RADIUS SYSTEM
 INDEX SYSTEM
  */
 * {
-  font-family: "Open Sans", sans-serif;
+  font-family: "Roboto", sans-serif;
 }
 
 /** CONFIG */
@@ -58,7 +58,7 @@ html, body {
   text-align: center;
 }
 .dash_login_left_box .dash_login_box_headline_logo {
-  color: #F4645F;
+  color: #0ca5c7;
   text-align: center;
   font-size: 3em;
 }

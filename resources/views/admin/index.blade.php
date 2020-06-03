@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="{{ url(mix('backend/assets/css/login.css')) }}"/>
     <link rel="icon" type="image/png" href="backend/assets/images/favicon.png"/>
 
-    <title>UpAdmin - Site Control</title>
+    <title>ImobInit - Site Control</title>
 </head>
 <body>
 
@@ -49,6 +49,7 @@
 </div>
 
 <script src="{{ url(mix('backend/assets/js/jquery.js')) }}"></script>
+<script src="{{ url(mix('backend/assets/js/login.js')) }}"></script>
 
 </body>
 </html>
