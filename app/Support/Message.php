@@ -1,0 +1,58 @@
+<?php
+
+namespace Imobinit\Support;
+
+class Message{
+
+    private $text;
+    private $type;
+
+    public function getType(){
+        return $this->type;
+    }
+
+    public function getText(){
+        return $this->text;
+    }
+
+
+    public function error(string $message):Message
+    {
+        $this->type= 'error';
+        $this->text = $message;
+
+        return $this;
+    }
+
+    public function successes(string $message):Message
+    {
+        $this->type= 'successes';
+        $this->text = $message;
+
+        return $this;
+    }
+
+    public function info(string $message):Message
+    {
+        $this->type= 'info';
+        $this->text = $message;
+
+        return $this;
+    }
+
+    public function warning(string $message):Message
+    {
+        $this->type= 'warning';
+        $this->text = $message;
+
+        return $this;
+    }
+
+
+
+    public function render()
+    {
+        $message = "<div class='message {$this->getType()}'>{$this->getText()}</div>";
+        return $message;
+    }
+}
