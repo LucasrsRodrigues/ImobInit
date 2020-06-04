@@ -31,13 +31,13 @@
             <img class="dash_sidebar_user_thumb" src="{{ url(asset('backend/assets/images/avatar.jpg')) }}" alt="" title=""/>
 
             <h1 class="dash_sidebar_user_name">
-                <a href="">Gustavo Web</a>
+                <a href="">Lucas Rodrigues</a>
             </h1>
         </article>
 
         <ul class="dash_sidebar_nav">
-            <li class="dash_sidebar_nav_item active">
-                <a class="icon-tachometer" href="dashboard.php?app=dashboard/index">Dashboard</a>
+            <li class="dash_sidebar_nav_item {{isActive('admin.home')}}">
+                <a class="icon-tachometer" href="{{ route('admin.home') }}">Dashboard</a>
             </li>
             <li class="dash_sidebar_nav_item"><a class="icon-users" href="dashboard.php?app=users/index">Clientes</a>
                 <ul class="dash_sidebar_nav_submenu">
@@ -72,7 +72,7 @@
                 <div class="dash_userbar_box_content">
                     <span class="icon-align-justify icon-notext mobile_menu transition btn btn-green"></span>
                     <h1 class="transition">
-                        <i class="icon-imob text-orange"></i><a href="">Up<b>Admin</b></a>
+                        <i class="icon-imob text-orange"></i><a href="">Imob<b>Init</b></a>
                     </h1>
                     <div class="dash_userbar_box_bar no_mobile">
                         <a class="text-red icon-sign-out" href="{{ route('admin.logout') }}">Sair</a>
