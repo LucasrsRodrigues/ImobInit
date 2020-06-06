@@ -129,6 +129,15 @@ return [
             'rule-name' => 'custom-message',
         ],
     ],
+    'values' => [
+        'civil_status'=>[
+            'married' => 'casado',
+            'separated' => 'separado',
+            'single' => 'solteiro',
+            'divorced' => 'divorciado',
+            'widower' => 'viuvo',
+        ]
+    ],
 
     /*
     |--------------------------------------------------------------------------
@@ -172,6 +181,38 @@ return [
         'title' => 'título',
         'username' => 'usuário',
         'year' => 'ano',
+
+        // Person
+        'document' => 'CPF',
+        'document_secondary' => 'RG',
+        'document_secondary_complement' => 'orgão expedidor',
+        'date_of_birth' => 'data de nascimento',
+        'place_of_birth' => 'naturalizade',
+        'occupation' => 'profissão',
+        'income' => 'renda',
+        'company_work' => 'empresa',
+        'civil_status' => 'estado civil',
+
+        // Address
+        'zipcode' => 'CEP',
+        'street' => 'rua',
+        'neighborhood' => 'bairro',
+
+        // Contact
+        'cell' => 'celular',
+        'telephone' => 'telefone',
+
+        // Spouse
+        'spouse_name'                          => 'nome do cônjuge',
+        'spouse_document'                      => 'CPF do cônjuge',
+        'spouse_document_secondary'            => 'RG do cônjuge',
+        'spouse_document_secondary_complement' => 'orgão expedidor do cônjuge',
+        'spouse_date_of_birth'                 => 'data de nascimento do cônjuge',
+        'spouse_place_of_birth'                => 'naturalizade do cônjuge',
+        'spouse_occupation'                    => 'profissão do cônjuge',
+        'spouse_income'                        => 'renda do cônjuge',
+        'spouse_company_work'                  => 'empresa do cônjuge',
+
     ],
 
 ];
