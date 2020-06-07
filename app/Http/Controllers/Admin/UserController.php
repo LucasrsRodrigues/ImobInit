@@ -5,6 +5,7 @@ namespace Imobinit\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use Imobinit\Http\Controllers\Controller;
 use Imobinit\Http\Requests\Admin\User as UserRequest;
+use Imobinit\User;
 
 class UserController extends Controller
 {
@@ -42,7 +43,8 @@ class UserController extends Controller
      */
     public function store(UserRequest $request)
     {
-        var_dump($request->all());
+        $userCreate = User::create($request->all());
+        // var_dump($userCreate);
     }
 
     /**
