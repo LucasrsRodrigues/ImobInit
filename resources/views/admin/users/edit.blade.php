@@ -27,7 +27,11 @@
                         @endmessage
                     @endforeach
                 @endif
-
+                @if (session()->exists('message'))
+                    @message(['color' => session()->get('color')])
+                        <p class="icon-asterisk">{{ session()->get('message') }}</p>
+                    @endmessage
+                @endif
 
                 <ul class="nav_tabs">
                     <li class="nav_tabs_item">
@@ -47,6 +51,7 @@
                 <form class="app_form" action="{{ route('admin.users.update', [ 'user' => $user->id]) }}" method="post" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
+                    <input type="hidden" name="id" value="{{ $user->id }}">
                     <div class="nav_tabs_content">
                         <div id="data">
                             <div class="label_gc">
@@ -505,3 +510,4 @@
         </div>
     </section>
 @endsection
+

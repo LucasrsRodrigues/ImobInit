@@ -185,6 +185,26 @@ $(function () {
         }
     });
 
+    function normalizeSpouse(){
+        if(typeof($('select[name="civil_status"]')) !== 'undifined'){
+            var select = $('select[name="civil_status"]').val();
+
+            if(select === 'married' || select === 'separeted'){
+
+                $('.content_spouse input, .content_spouse select').prop('disabled', false);
+
+            }else{
+                $('.content_spouse input, .content_spouse select').prop('disabled', true);
+            }
+        }
+    }
+
+    normalizeSpouse();
+
+    $('select[name="civil_status"]').change(function(){
+        normalizeSpouse();
+    });
+
 });
 
 // TINYMCE INIT

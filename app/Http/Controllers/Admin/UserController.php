@@ -3,6 +3,7 @@
 namespace Imobinit\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Imobinit\Http\Controllers\Controller;
 use Imobinit\Http\Requests\Admin\User as UserRequest;
 use Imobinit\User;
@@ -24,7 +25,10 @@ class UserController extends Controller
     }
     public function team()
     {
-        return view('admin.users.team');
+        $users = User::where('admin', 1)->get();
+        return view('admin.users.team', [
+            'users' => $users
+        ]);
 
     }
 
@@ -47,7 +51,15 @@ class UserController extends Controller
     public function store(UserRequest $request)
     {
         $userCreate = User::create($request->all());
-        // var_dump($userCreate);
+
+        if(!empty($request->file('cover'))){
+            $userCreate->cover = $request->file('cover')->storeAs('user', str_slug($request->name) . '-' . str_replace('.', '', microtime(true)) . '.' . $request->file('cover')->extension());;
+            $userCreate->save();
+        }
+
+        return redirect()->route('admin.users.edit',[
+            'users' => $userCreate->id
+        ])->with(['color' => 'green', 'message' => 'Cliente cadastrado com sucesso!']);
     }
 
     /**
@@ -89,10 +101,24 @@ class UserController extends Controller
         $user->setLessorAttribute($request->lessor);
         $user->setLesseeAttribute($request->lessee);
 
+        if(!empty($request->file('cover'))){
+            Storage::delete($user->cover);
+            $user->cover = '';
+        }
         $user->fill($request->all());
 
-        $user->save();
+        if(!empty($request->file('cover'))){
+            $user->cover = $request->file('cover')->storeAs('user', str_slug($request->name) . '-' . str_replace('.', '', microtime(true)) . '.' . $request->file('cover')->extension());
+        }
 
+
+        if(!$user->save()){
+            return redirect()->back()->withInput()->withErrors();
+        }
+
+        return redirect()->route('admin.users.edit',[
+            'users' => $user->id
+        ])->with(['color' => 'green', 'message' => 'Cliente atualizado com sucesso!']);
     }
 
     /**

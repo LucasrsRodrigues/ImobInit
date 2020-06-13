@@ -980,7 +980,7 @@ input:-webkit-autofill {
 .app_users_home {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: flex-start;
 }
 
 .app_users_home article {
@@ -988,6 +988,7 @@ input:-webkit-autofill {
   padding: 30px;
   background: #FFFFFF;
   margin-bottom: 30px;
+  margin-right: 20px;
   text-align: center;
 }
 
