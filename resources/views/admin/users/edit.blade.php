@@ -372,21 +372,27 @@
                                 <div class="app_collapse_content">
 
                                     <div class="companies_list">
-                                        <div class="no-content mb-2">Não foram encontrados registros!</div>
+                                        @if ($user->companies()->get())
+                                            @foreach ($user->companies()->get() as $company)
+                                                <div class="companies_list_item mb-2">
+                                                    <p><b>Razão Social:</b> {{$company->social_name}} </p>
+                                                    <p><b>Nome Fantasia:</b> {{$company->alias_name}}</p>
+                                                    <p><b>CNPJ:</b> {{$company->document_company}} - <b>Inscrição Estadual:</b>{{$company->document_company_secondary}}</p>
+                                                    <p><b>Endereço:</b> {{$company->street}}, {{$company->number}} {{$company->complement}}</p>
+                                                    <p><b>CEP:</b> {{ $company->zipcode }} <b>Bairro:</b> {{$company->neighborhood}} <b>Cidade/Estado:</b>
+                                                        {{$company->city}}/{{$company->state}}</p>
+                                                </div>
+                                            @endforeach
+                                        @else
+                                            <div class="no-content mb-2">Não foram encontrados registros!</div>
+                                        @endif
 
-                                        <div class="companies_list_item mb-2">
-                                            <p><b>Razão Social:</b> Lorem, ipsum dolor.</p>
-                                            <p><b>Nome Fantasia:</b> Lorem, ipsum.</p>
-                                            <p><b>CNPJ:</b> 99.9999.999/9999-99 - <b>Inscrição Estadual:</b>9999999999</p>
-                                            <p><b>Endereço:</b> Lorem ipsum dolor sit amet.</p>
-                                            <p><b>CEP:</b> 99999-999 <b>Bairro:</b> Lorem. <b>Cidade/Estado:</b>
-                                                Lorem./SP</p>
-                                        </div>
+
                                     </div>
 
                                     <p class="text-right">
-                                        <a href="javascript:void(0)" class="btn btn-green btn-disabled icon-building-o">Cadastrar
-                                            Nova Empresa</a>
+                                        <a href=" {{route('admin.companies.create' , ['user' => $user->id]) }} "
+                                            class="btn btn-green icon-building-o">Cadastrar Nova Empresa</a>
                                     </p>
                                 </div>
                             </div>
