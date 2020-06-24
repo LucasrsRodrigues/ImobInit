@@ -1,0 +1,98 @@
+<?php
+
+namespace Imobinit\Http\Controllers\Admin;
+
+use Illuminate\Http\Request;
+use Imobinit\Http\Controllers\Controller;
+use Imobinit\Http\Requests\Admin\Property as PropertyRequest;
+use Imobinit\Property;
+
+class PropertyController extends Controller
+{
+
+    public function index()
+    {
+        return view('admin.properties.index');
+    }
+
+
+    public function create()
+    {
+        return view('admin.properties.create');
+    }
+
+
+    public function store(PropertyRequest $request)
+    {
+        $createProperty = Property::create($request->all());
+
+        return redirect()->route('admin.properties.edit',[
+            'property' => $createProperty->id
+        ])->with(['color' => 'green', 'message' => 'Imovel cadastrado com sucesso!']);
+    }
+
+
+    public function show($id)
+    {
+        //
+    }
+
+
+    public function edit($id)
+    {
+        $property = Property::where('id', $id)->first();
+
+        return view('admin.properties.edit',[
+            'property' => $property
+        ]);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(PropertyRequest $request, $id)
+    {
+        $property = Property::where('id', $id)->first();
+        $property->fill($request->all());
+
+        $property->setSaleAttribute($request->sale);
+        $property->setRentAttribute($request->rent);
+        $property->setAirConditioningAttribute($request->air_conditioning);
+        $property->setBarAttribute($request->bar);
+        $property->setLibraryAttribute($request->library);
+        $property->setBarbecueGrillAttribute($request->barbecue_grill);
+        $property->setAmericanKitchenAttribute($request->american_kitchen);
+        $property->setFittedKitchenAttribute($request->fitted_kitchen);
+        $property->setPantryAttribute($request->pantry);
+        $property->setEdiculeAttribute($request->edicule);
+        $property->setOfficeAttribute($request->office);
+        $property->setBathtubAttribute($request->bathtub);
+        $property->setFirePlaceAttribute($request->fireplace);
+        $property->setLavatoryAttribute($request->lavatory);
+        $property->setFurnishedAttribute($request->furnished);
+        $property->setPoolAttribute($request->pool);
+        $property->setSteamRoomAttribute($request->steam_room);
+        $property->setViewOfTheSeaAttribute($request->view_of_the_sea);
+
+        $property->save();
+
+        return redirect()->route('admin.properties.edit',[
+            'property' => $property->id
+        ])->with(['color' => 'green', 'message' => 'Imovel alterado com sucesso!']);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        //
+    }
+}

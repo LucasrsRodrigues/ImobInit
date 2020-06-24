@@ -2,11 +2,11 @@
 
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], function(){
 
-    /*  FORMULARIO DE LOGIN*/
+    /*  FORMULARIO DE LOGIN */
     Route::get('/', 'AuthController@showLoginForm')->name('login');
     Route::post('login', 'AuthController@login')->name('login.do');
 
-    /*  FORMULARIO DE PROTEGIDAS*/
+    /*  FORMULARIO DE PROTEGIDAS */
     Route::group(['middleware' => ['auth']], function(){
 
         /* Dashboard Home */
@@ -18,10 +18,11 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], fu
 
         /** Empresas */
         Route::resource('companies', 'CompanyController');
+        /* Imoveis */
+        Route::resource('properties', 'PropertyController');
 
     });
-
-    /*  FORMULARIO DE LOGOUT*/
+    /*  */
     Route::get('logout','AuthController@logout')->name('logout');
 
 });
