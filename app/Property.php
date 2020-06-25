@@ -50,6 +50,11 @@ class Property extends Model
         'view_of_the_sea'
     ];
 
+    public function user(){
+        return $this->belongsTo(User::class, 'user', 'id');
+    }
+
+
     public function setSaleAttribute($value)
     {
         $this->attributes['sale'] = ($value == true || $value == 'on' ? 1 : 0);

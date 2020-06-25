@@ -113,6 +113,7 @@ return [
     'uploaded'             => 'Falha no Upload do arquivo :attribute.',
     'url'                  => 'O formato da URL informada para o campo :attribute é inválido.',
 
+
     /*
     |--------------------------------------------------------------------------
     | Custom Validation Language Lines
@@ -136,7 +137,8 @@ return [
             'single' => 'solteiro',
             'divorced' => 'divorciado',
             'widower' => 'viuvo',
-        ]
+        ],
+
     ],
 
     /*
@@ -218,6 +220,9 @@ return [
         'alias_name' => 'nome fantasia',
         'document_company' => 'CNPJ',
         'document_company_secondary' => 'incrição estadual',
+
+
+
 
     ],
 

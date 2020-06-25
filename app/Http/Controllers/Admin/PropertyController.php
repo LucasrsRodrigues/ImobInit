@@ -6,19 +6,28 @@ use Illuminate\Http\Request;
 use Imobinit\Http\Controllers\Controller;
 use Imobinit\Http\Requests\Admin\Property as PropertyRequest;
 use Imobinit\Property;
+use Imobinit\User;
 
 class PropertyController extends Controller
 {
 
     public function index()
     {
-        return view('admin.properties.index');
+        $properties = Property::orderBy('id', 'DESC')->get();
+
+        return view('admin.properties.index',[
+            'properties' => $properties
+        ]);
     }
 
 
     public function create()
     {
-        return view('admin.properties.create');
+        $users = User::orderBy('name')->get();
+
+        return view('admin.properties.create',[
+            'users' => $users
+        ]);
     }
 
 
@@ -41,9 +50,11 @@ class PropertyController extends Controller
     public function edit($id)
     {
         $property = Property::where('id', $id)->first();
+        $users = User::orderBy('name')->get();
 
         return view('admin.properties.edit',[
-            'property' => $property
+            'property' => $property,
+            'users'    => $users
         ]);
     }
 

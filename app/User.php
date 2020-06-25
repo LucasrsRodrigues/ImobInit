@@ -83,6 +83,15 @@ class User extends Authenticatable
     {
         return $this->hasMany(Company::class, 'user', 'id');
     }
+
+    public function properties(){
+
+        return $this->hasMany(Property::class, 'user','id');
+
+    }
+
+
+
     public function getUrlCoverAttribute(){
 
         if(!empty($this->cover)){
