@@ -128,4 +128,12 @@ class PropertyController extends Controller
     {
         //
     }
+
+
+    public function imageSetCover(){
+        return response()->json('Voce chegou ate o php e conseguiu retornar os dados');
+    }
+    public function imageRemove(){
+        return response()->json('Voce deletou a imagem');
+    }
 }
