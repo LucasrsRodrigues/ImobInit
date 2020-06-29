@@ -3,6 +3,9 @@
 namespace Imobinit;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
+use Imobinit\Support\Cropper;
 
 class Property extends Model
 {
@@ -56,7 +59,24 @@ class Property extends Model
 
     public function images(){
         return $this->hasMany(PropertyImage::class, 'property', 'id')
-                ->orderBy('cover', 'ASC');
+                ->orderBy('cover', 'DESC');
+    }
+
+    public function cover(){
+        $images = $this->images();
+
+        $cover = $images->where('cover', 1)->first(['path']);
+
+        if(!$cover){
+            $images = $this->images();
+            $cover = $images->fisrt(['path']);
+        }
+
+        if(empty($cover['path']) || !File::exists('../public/storage/'.$cover['path'])){
+            return url(asset('backend/assets/images/realty.jpg'));
+        }
+
+        return Storage::url(Cropper::thumb($cover['path'], 1366, 768));
     }
 
     public function setSaleAttribute($value)

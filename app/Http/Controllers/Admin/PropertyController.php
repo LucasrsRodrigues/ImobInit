@@ -3,10 +3,12 @@
 namespace Imobinit\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Imobinit\Http\Controllers\Controller;
 use Imobinit\Http\Requests\Admin\Property as PropertyRequest;
 use Imobinit\Property;
 use Imobinit\PropertyImage;
+use Imobinit\Support\Cropper;
 use Imobinit\User;
 
 class PropertyController extends Controller
@@ -16,7 +18,7 @@ class PropertyController extends Controller
     {
         $properties = Property::orderBy('id', 'DESC')->get();
 
-        return view('admin.properties.index',[
+        return view('admin.properties.index', [
             'properties' => $properties
         ]);
     }
@@ -26,7 +28,7 @@ class PropertyController extends Controller
     {
         $users = User::orderBy('name')->get();
 
-        return view('admin.properties.create',[
+        return view('admin.properties.create', [
             'users' => $users
         ]);
     }
@@ -36,8 +38,8 @@ class PropertyController extends Controller
     {
         $createProperty = Property::create($request->all());
 
-        if($request->allFiles()){
-            foreach($request->allFiles()['files'] as $image){
+        if ($request->allFiles()) {
+            foreach ($request->allFiles()['files'] as $image) {
                 $propertyImage = new PropertyImage();
                 $propertyImage->property = $createProperty->id;
                 $propertyImage->path = $image->storeAs('properties/' . $createProperty->id, str_slug($request->title) . '-' . str_replace('.', '', microtime(true)) . '.' . $image->extension());
@@ -46,7 +48,7 @@ class PropertyController extends Controller
             }
         }
 
-        return redirect()->route('admin.properties.edit',[
+        return redirect()->route('admin.properties.edit', [
             'property' => $createProperty->id
         ])->with(['color' => 'green', 'message' => 'Imovel cadastrado com sucesso!']);
     }
@@ -63,7 +65,7 @@ class PropertyController extends Controller
         $property = Property::where('id', $id)->first();
         $users = User::orderBy('name')->get();
 
-        return view('admin.properties.edit',[
+        return view('admin.properties.edit', [
             'property' => $property,
             'users'    => $users
         ]);
@@ -102,8 +104,8 @@ class PropertyController extends Controller
 
         $property->save();
 
-        if($request->allFiles()){
-            foreach($request->allFiles()['files'] as $image){
+        if ($request->allFiles()) {
+            foreach ($request->allFiles()['files'] as $image) {
                 $propertyImage = new PropertyImage();
                 $propertyImage->property = $property->id;
                 $propertyImage->path = $image->storeAs('properties/' . $property->id, str_slug($request->title) . '-' . str_replace('.', '', microtime(true)) . '.' . $image->extension());
@@ -113,7 +115,7 @@ class PropertyController extends Controller
         }
 
 
-        return redirect()->route('admin.properties.edit',[
+        return redirect()->route('admin.properties.edit', [
             'property' => $property->id
         ])->with(['color' => 'green', 'message' => 'Imovel alterado com sucesso!']);
     }
@@ -130,10 +132,43 @@ class PropertyController extends Controller
     }
 
 
-    public function imageSetCover(){
-        return response()->json('Voce chegou ate o php e conseguiu retornar os dados');
+    public function imageSetCover(Request $request)
+    {
+
+
+        $imageSetCover = PropertyImage::where('id', $request->image)->first();
+        $allImage = PropertyImage::where('property', $imageSetCover->property)->get();
+        $imageSetCover->cover = true;
+        $imageSetCover->save();
+
+
+        foreach($allImage as $image){
+            $image->cover = null;
+            $image->save();
+        }
+
+        $imageSetCover->cover = true;
+        $imageSetCover->save();
+
+        $json = [
+            'success' => true
+        ];
+
+        return response()->json($json);
     }
-    public function imageRemove(){
-        return response()->json('Voce deletou a imagem');
+    public function imageRemove(Request $request)
+    {
+        $imageDelete = PropertyImage::where('id', $request->image)->first();
+
+        Storage::delete($imageDelete->path);
+        Cropper::flush($imageDelete->path);
+        $imageDelete->delete();
+
+        $json =[
+            'success' => true
+        ];
+
+
+        return response()->json($json);
     }
 }
