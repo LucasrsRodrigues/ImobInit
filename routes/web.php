@@ -24,8 +24,18 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], fu
         Route::delete('properties/image-remove', 'PropertyController@imageremove')->name('properties.imageRemove');
         Route::resource('properties', 'PropertyController');
 
+        /** Contratos */
+        Route::post('contracts/get-data-owner', 'ContractController@getDataOwner')->name('contracts.getDataOwner');
+        Route::post('contracts/get-data-acquirer', 'ContractController@getDataAcquirer')->name('contracts.getDataAcquirer');
+        Route::post('contracts/get-data-property', 'ContractController@getDataProperty')->name('contracts.getDataProperty');
+        Route::resource('contracts', 'ContractController');
+
+
+
+
+
     });
-    /*  */
+    /*  Logout */
     Route::get('logout','AuthController@logout')->name('logout');
 
 });
