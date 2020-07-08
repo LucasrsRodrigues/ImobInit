@@ -149,7 +149,12 @@ class User extends Authenticatable
     }
 
     public function setPasswordAttribute($value){
-        $this->attributes['password'] = bcrypt($value);
+        if (empty($value)) {
+            unset($this->attributes['password']);
+            return;
+         }
+
+         $this->attributes['password'] = bcrypt($value);
     }
     public function setSpouseDocumentAttribute($value){
         $this->attributes['spouse_document'] = $this->clearField($value);

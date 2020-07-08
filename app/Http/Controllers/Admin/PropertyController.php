@@ -4,6 +4,7 @@ namespace Imobinit\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 use Imobinit\Http\Controllers\Controller;
 use Imobinit\Http\Requests\Admin\Property as PropertyRequest;
 use Imobinit\Property;
@@ -37,6 +38,14 @@ class PropertyController extends Controller
     public function store(PropertyRequest $request)
     {
         $createProperty = Property::create($request->all());
+
+        $validator = Validator::make($request->only('files'),['files.*' => 'image']);
+        if($validator->fails() === true){
+            return redirect()->back()->withInput()->with([
+                'color'=>'orange',
+                'message' => 'Todas as imagens devem ser do tipo jpg, jpeg ou png.'
+            ]);
+        }
 
         if ($request->allFiles()) {
             foreach ($request->allFiles()['files'] as $image) {
@@ -103,6 +112,14 @@ class PropertyController extends Controller
         $property->setViewOfTheSeaAttribute($request->view_of_the_sea);
 
         $property->save();
+
+        $validator = Validator::make($request->only('files'),['files.*' => 'image']);
+        if($validator->fails() === true){
+            return redirect()->back()->withInput()->with([
+                'color'=>'orange',
+                'message' => 'Todas as imagens devem ser do tipo jpg, jpeg ou png.'
+            ]);
+        }
 
         if ($request->allFiles()) {
             foreach ($request->allFiles()['files'] as $image) {

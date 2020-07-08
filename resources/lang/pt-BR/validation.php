@@ -187,9 +187,9 @@ return [
         // Person
         'document' => 'CPF',
         'document_secondary' => 'RG',
-        'document_secondary_complement' => 'orgão expedidor',
+        'document_secondary_complement' => 'órgão expedidor',
         'date_of_birth' => 'data de nascimento',
-        'place_of_birth' => 'naturalizade',
+        'place_of_birth' => 'naturalidade',
         'occupation' => 'profissão',
         'income' => 'renda',
         'company_work' => 'empresa',
@@ -198,32 +198,48 @@ return [
         // Address
         'zipcode' => 'CEP',
         'street' => 'rua',
+        'number' => 'número',
         'neighborhood' => 'bairro',
 
         // Contact
-        'cell' => 'celular',
         'telephone' => 'telefone',
+        'cell' => 'celular',
 
         // Spouse
-        'spouse_name'                          => 'nome do cônjuge',
-        'spouse_document'                      => 'CPF do cônjuge',
-        'spouse_document_secondary'            => 'RG do cônjuge',
-        'spouse_document_secondary_complement' => 'orgão expedidor do cônjuge',
-        'spouse_date_of_birth'                 => 'data de nascimento do cônjuge',
-        'spouse_place_of_birth'                => 'naturalizade do cônjuge',
-        'spouse_occupation'                    => 'profissão do cônjuge',
-        'spouse_income'                        => 'renda do cônjuge',
-        'spouse_company_work'                  => 'empresa do cônjuge',
+        'spouse_name' => 'nome do cônjuge',
+        'spouse_document' => 'CPF do cônjuge',
+        'spouse_document_secondary' => 'RG do cônjuge',
+        'spouse_document_secondary_complement' => 'órgão expedidor do cônjuge',
+        'spouse_date_of_birth' => 'data de nascimento do cônjuge',
+        'spouse_place_of_birth' => 'naturalidade do cônjuge',
+        'spouse_occupation' => 'profissão do cônjuge',
+        'spouse_income' => 'renda do cônjuge',
+        'spouse_company_work' => 'empresa do cônjuge',
 
         // Company
         'social_name' => 'razão social',
         'alias_name' => 'nome fantasia',
         'document_company' => 'CNPJ',
-        'document_company_secondary' => 'incrição estadual',
+        'document_company_secondary' => 'inscrição estadual',
 
+        // Contracts
+        'owner' => 'proprietário',
+        'acquirer' => 'adquirente',
+        'property' => 'imóvel',
+        'start_at' => 'data de início',
 
-
-
+        // PROPERTY
+        'user' => 'usuário',
+        'tribute' => 'IPTU',
+        'condominium' => 'condomínio',
+        'bedrooms' => 'quartos',
+        'suites' => 'suítes',
+        'bathrooms' => 'banheiros',
+        'rooms' => 'salas',
+        'garage' => 'garagem',
+        'garage_covered' => 'garagem coberta',
+        'area_total' => 'área total',
+        'area_util' => 'área útil',
     ],
 
 ];

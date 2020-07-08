@@ -14,7 +14,8 @@ class PropertyImage extends Model
         'cover'
     ];
 
-    public function getUrlCroppedAttribute(){
+    public function getUrlCroppedAttribute()
+    {
         return Storage::url(Cropper::thumb($this->path, 1366, 768));
     }
 }

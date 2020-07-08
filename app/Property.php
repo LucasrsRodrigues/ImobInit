@@ -50,33 +50,46 @@ class Property extends Model
         'furnished',
         'pool',
         'steam_room',
-        'view_of_the_sea'
+        'view_of_the_sea',
+        'status'
     ];
 
-    public function user(){
+    public function user()
+    {
         return $this->belongsTo(User::class, 'user', 'id');
     }
 
-    public function images(){
+    public function images()
+    {
         return $this->hasMany(PropertyImage::class, 'property', 'id')
-                ->orderBy('cover', 'DESC');
+            ->orderBy('cover', 'ASC');
     }
 
-    public function cover(){
+    public function cover()
+    {
         $images = $this->images();
-
         $cover = $images->where('cover', 1)->first(['path']);
 
-        if(!$cover){
+        if(!$cover) {
             $images = $this->images();
-            $cover = $images->fisrt(['path']);
+            $cover = $images->first(['path']);
         }
 
-        if(empty($cover['path']) || !File::exists('../public/storage/'.$cover['path'])){
-            return url(asset('backend/assets/images/realty.jpg'));
+        if(empty($cover['path']) || !File::exists('../public/storage/' . $cover['path'])) {
+            return url(asset('backend/assets/images/realty.jpeg'));
         }
 
         return Storage::url(Cropper::thumb($cover['path'], 1366, 768));
+    }
+
+    public function scopeAvailable($query)
+    {
+        return $query->where('status', 1);
+    }
+
+    public function scopeUnavailable($query)
+    {
+        return $query->where('status', 0);
     }
 
     public function setSaleAttribute($value)
@@ -89,79 +102,112 @@ class Property extends Model
         $this->attributes['rent'] = ($value == true || $value == 'on' ? 1 : 0);
     }
 
+    public function setStatusAttribute($value)
+    {
+        $this->attributes['status'] = ($value == '1' ? 1 : 0);
+    }
+
     public function setSalePriceAttribute($value)
     {
-
-        if (empty($value)) {
+        if(empty($value)){
             $this->attributes['sale_price'] = null;
         } else {
             $this->attributes['sale_price'] = floatval($this->convertStringToDouble($value));
         }
     }
 
-    public function getSalePriceAttribute($value){
+    public function getSalePriceAttribute($value)
+    {
         return number_format($value, 2, ',', '.');
     }
 
     public function setRentPriceAttribute($value)
     {
-
-        if (empty($value)) {
+        if(empty($value)){
             $this->attributes['rent_price'] = null;
         } else {
             $this->attributes['rent_price'] = floatval($this->convertStringToDouble($value));
         }
     }
-    public function getRentPriceAttribute($value){
+
+    public function getRentPriceAttribute($value)
+    {
         return number_format($value, 2, ',', '.');
     }
+
     public function setTributeAttribute($value)
     {
-
-        if (empty($value)) {
+        if(empty($value)){
             $this->attributes['tribute'] = null;
         } else {
             $this->attributes['tribute'] = floatval($this->convertStringToDouble($value));
         }
     }
-    public function getTributeAttribute($value){
+
+    public function getTributeAttribute($value)
+    {
         return number_format($value, 2, ',', '.');
     }
+
     public function setCondominiumAttribute($value)
     {
-
-        if (empty($value)) {
+        if(empty($value)){
             $this->attributes['condominium'] = null;
         } else {
             $this->attributes['condominium'] = floatval($this->convertStringToDouble($value));
         }
     }
-    public function getConominiumAttribute($value){
+
+    public function getCondominiumAttribute($value)
+    {
         return number_format($value, 2, ',', '.');
     }
+
+    /**
+     * Mutator Air Conditioning
+     *
+     * @param $value
+     */
     public function setAirConditioningAttribute($value)
     {
         $this->attributes['air_conditioning'] = (($value === true || $value === 'on') ? 1 : 0);
     }
 
-
+    /**
+     * Mutator Bar
+     *
+     * @param $value
+     */
     public function setBarAttribute($value)
     {
         $this->attributes['bar'] = (($value === true || $value === 'on') ? 1 : 0);
     }
 
-
+    /**
+     * Mutator Library
+     *
+     * @param $value
+     */
     public function setLibraryAttribute($value)
     {
         $this->attributes['library'] = (($value === true || $value === 'on') ? 1 : 0);
     }
 
-
+    /**
+     * Mutator Barbecue Grill
+     *
+     * @param $value
+     */
     public function setBarbecueGrillAttribute($value)
     {
         $this->attributes['barbecue_grill'] = (($value === true || $value === 'on') ? 1 : 0);
     }
 
+    /**
+     * Mutator American Kitchen
+     *
+     * @param $value
+     */
     public function setAmericanKitchenAttribute($value)
     {
         $this->attributes['american_kitchen'] = (($value === true || $value === 'on') ? 1 : 0);
@@ -277,15 +323,13 @@ class Property extends Model
         $this->attributes['view_of_the_sea'] = (($value === true || $value === 'on') ? 1 : 0);
     }
 
-
-
-    private function convertStringToDouble(?string $param)
+    private function convertStringToDouble($param)
     {
-
-        if (empty($param)) {
+        if(empty($param)){
             return null;
         }
 
         return str_replace(',', '.', str_replace('.', '', $param));
     }
 }
+
